@@ -4,6 +4,8 @@ import {
   BarChart3,
   ExternalLink,
   RefreshCw,
+  Search,
+  Filter,
 } from "lucide-react";
 import "./GetAllLinks.css";
 
@@ -15,7 +17,9 @@ function GetAllLinks() {
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCode, setSelectedCode] = useState(null);
-  const [deleteCode, setDeleteCode] = useState(null); 
+  const [deleteCode, setDeleteCode] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
 
   const loadLinks = async () => {
     setLoading(true);
@@ -40,6 +44,36 @@ function GetAllLinks() {
     }
   };
 
+  const filteredLinks = links.filter((link) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      link.code.toLowerCase().includes(query) ||
+      link.url.toLowerCase().includes(query)
+    );
+  });
+
+  const sortedLinks = [...filteredLinks].sort((a, b) => {
+    switch (sortBy) {
+      case "alphabetical":
+        return a.code.localeCompare(b.code);
+      case "clicks-high":
+        return b.clicks - a.clicks;
+      case "clicks-low":
+        return a.clicks - b.clicks;
+      case "lastclick-recent":
+        if (!a.lastClicked) return 1;
+        if (!b.lastClicked) return -1;
+        return new Date(b.lastClicked) - new Date(a.lastClicked);
+      case "lastclick-oldest":
+        if (!a.lastClicked) return 1;
+        if (!b.lastClicked) return -1;
+        return new Date(a.lastClicked) - new Date(b.lastClicked);
+      case "newest":
+      default:
+        return 0; 
+    }
+  });
+
   return (
     <div className="animate-fade-in">
       <div className="card">
@@ -48,7 +82,7 @@ function GetAllLinks() {
           <div>
             <h2 className="title-main">All Short Links</h2>
             <p className="links-count">
-              {links.length} {links.length === 1 ? "link" : "links"} created
+              {sortedLinks.length} of {links.length} {links.length === 1 ? "link" : "links"}
             </p>
           </div>
 
@@ -62,12 +96,41 @@ function GetAllLinks() {
           </button>
         </div>
 
+        <div className="search-filter-section">
+          <div className="search-box">
+            <Search className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search by code or URL..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+          </div>
+
+          <div className="filter-box">
+            <Filter className="filter-icon" />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="filter-select"
+            >
+              <option value="newest">Newest First</option>
+              <option value="alphabetical">Alphabetical (A-Z)</option>
+              <option value="clicks-high">Most Clicks</option>
+              <option value="clicks-low">Least Clicks</option>
+              <option value="lastclick-recent">Recently Clicked</option>
+              <option value="lastclick-oldest">Oldest Click</option>
+            </select>
+          </div>
+        </div>
+
         {loading ? (
           <div className="table-loader"><div className="loader-spinner" /></div>
-        ) : links.length === 0 ? (
+        ) : sortedLinks.length === 0 ? (
           <div className="table-no-links">
             <ExternalLink className="table-no-svg" />
-            <p>No links found</p>
+            <p>{searchQuery ? "No links match your search" : "No links found"}</p>
           </div>
         ) : (
           <div className="table-scroll">
@@ -85,7 +148,7 @@ function GetAllLinks() {
               </thead>
 
               <tbody>
-                {links.map((item, index) => (
+                {sortedLinks.map((item, index) => (
                   <tr key={item._id}>
                     <td>{index + 1}</td>
 

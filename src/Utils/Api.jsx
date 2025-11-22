@@ -13,7 +13,7 @@ export const getStats = (code) => {
 };
 
 export const getHealth = (url) => {
-  return axios.get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/api/links/healthz?url=${encodeURIComponent(url)}`);
+  return axios.get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/api/links/code/healthz?url=${encodeURIComponent(url)}`);
 };
 
 export const deleteLink = (code) => {
