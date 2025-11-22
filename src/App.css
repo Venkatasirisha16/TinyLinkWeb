@@ -1,0 +1,96 @@
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.app-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.app-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.app-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.app-title-icon-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.app-title-icon-bg {
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+}
+.app-title-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: white;
+}
+.app-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.75rem;
+}
+.app-title-highlight {
+  color: #fbbf24;
+}
+.app-subtitle {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.25rem;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+.app-tab-row {
+  max-width: 42rem;
+  margin: 0 auto 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.app-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #6b7280;
+  transition: all 0.3s;
+}
+.app-tab-active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+.app-tab-btn-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.app-content {
+  max-width: 96rem;
+  margin: 0 auto;
+}
