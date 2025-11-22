@@ -5,7 +5,7 @@ import {
   ExternalLink,
   RefreshCw,
 } from "lucide-react";
-import "./GETAllLinks.css";
+import "./GetAllLinks.css";
 
 import { getAllLinks, deleteLink } from "../../Utils/Api";
 import DeleteModal from "../DeleteModal/DeleteModal"; 
