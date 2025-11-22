@@ -98,7 +98,7 @@ function GetAllLinks() {
 
                     <td>
                       <a
-                        href={`https://tiny-link-bay-kappa.vercel.app/api/links/url/${item.code}`}
+                        href={`${import.meta.env.VITE_REACT_APP_BASE_URL}/${item.code}`}
                         target="_blank"
                         rel="noreferrer"
                         className="table-link-short"

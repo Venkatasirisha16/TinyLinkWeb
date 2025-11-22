@@ -32,7 +32,7 @@ export default function CreateLink() {
       const res = await createShortLink(payload);
 
       const finalCode = res.data.code;
-      const generated = `${import.meta.env.VITE_REACT_APP_BASE_URL}/url/${finalCode}`;
+      const generated = `${import.meta.env.VITE_REACT_APP_BASE_URL}/${finalCode}`;
 
       setShortUrl(generated);
       setResult("Short URL created successfully!");
